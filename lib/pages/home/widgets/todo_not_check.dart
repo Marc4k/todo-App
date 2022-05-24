@@ -21,29 +21,40 @@ class ToDoNotChecked extends StatelessWidget {
           value: false,
           onChanged: (bool? value) => onClick,
         ),
-        Column(
-          children: [
-            Text(
-              text,
-              textScaleFactor: textscale(context),
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF737373),
+        Expanded(
+          child: Column(
+            children: [
+              Text(
+                text,
+                textScaleFactor: textscale(context),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF737373),
+                ),
               ),
-            ),
-            Text(
-              time,
-              textScaleFactor: textscale(context),
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFFA3A3A3),
-              ),
-            ),
-          ],
-        )
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  time,
+                  textScaleFactor: textscale(context),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFA3A3A3),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ],
     );
   }
 }
+
+/*
+           ,*/
+
+/*       
+        )*/

@@ -32,7 +32,10 @@ class HomeScreenTodayWidget extends StatelessWidget {
             itemCount: 5,
             itemBuilder: (context, index) {
               return ToDoNotChecked(
-                  text: "Test", time: "12:35", onClick: () {});
+                  text:
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                  time: "12:35",
+                  onClick: () {});
             },
           )
         ],
