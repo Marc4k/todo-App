@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
+import 'package:todo/cubit/get_todo_today_cubit.dart';
 import 'package:todo/pages/add_todo/widgets/add_todo_text.dart';
 import 'package:todo/pages/home/view/home_screen.dart';
 import 'package:todo/shared/custom_text_widget.dart';
@@ -90,10 +91,10 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
                     )),
                 onPressed: () async {
                   if (nameController.text != null) {
-                    await ToDoRepositoryImpl.instance.setNewToDo(
-                        nameController.text,
-                        timeNow.format(context).toString(),
-                        true);
+                    await ToDoRepositoryImpl().setNewToDo(
+                        name: nameController.text,
+                        time: timeNow.format(context).toString(),
+                        isToday: true);
 
                     Navigator.pop(context);
                   }
