@@ -43,5 +43,7 @@ class DatabaseService {
 
 Future _createDB(Database db, int version) async {
   await db.execute(
-      'CREATE TABLE $tableToDo (id INTEGER PRIMARY KEY, ${ToDoFields.name} TEXT, ${ToDoFields.time} TEXT, ${ToDoFields.isChecked} BOOLEAN)');
+      'CREATE TABLE $tableToDoToday (id INTEGER PRIMARY KEY, ${ToDoFields.name} TEXT, ${ToDoFields.time} TEXT, ${ToDoFields.isChecked} BOOLEAN)');
+  await db.execute(
+      'CREATE TABLE $tableToDoTomorrow (id INTEGER PRIMARY KEY, ${ToDoFields.name} TEXT, ${ToDoFields.time} TEXT, ${ToDoFields.isChecked} BOOLEAN)');
 }

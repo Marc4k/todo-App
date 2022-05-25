@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/cubit/get_todo_tomorrow_cubit.dart';
 import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
 import 'package:todo/shared/screen_adaption.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,13 +13,14 @@ class ToDoListItem extends StatefulWidget {
     required this.time,
     required this.isChecked,
     required this.id,
+    required this.isToday,
   }) : super(key: key);
 
   final int id;
   final bool isChecked;
   final String text;
   final String time;
-
+  final bool isToday;
   @override
   State<ToDoListItem> createState() => _ToDoListItemState();
 }
@@ -33,8 +35,12 @@ class _ToDoListItemState extends State<ToDoListItem> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             value: widget.isChecked,
             onChanged: (value) async {
-              await ToDoRepositoryImpl().checkToDo(id: widget.id);
-              context.read<GetToDoCubit>().getToDoToday();
+              await ToDoRepositoryImpl().checkToDo(
+                  id: widget.id,
+                  isToday: widget.isToday,
+                  isCheked: widget.isChecked);
+              context.read<GetToDoTodayCubit>().getToDo();
+              context.read<GetToDoTomorrowCubit>().getToDo();
             }),
         Expanded(
           child: Column(

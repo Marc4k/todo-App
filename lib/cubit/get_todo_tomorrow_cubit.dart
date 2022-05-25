@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:todo/domain/todo/models/todo_model.dart';
 import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
 
-class GetToDoTodayCubit extends Cubit<List<ToDoModel>> {
-  GetToDoTodayCubit() : super([]);
+class GetToDoTomorrowCubit extends Cubit<List<ToDoModel>> {
+  GetToDoTomorrowCubit() : super([]);
 
   Future<void> getToDo() async =>
-      emit(await ToDoRepositoryImpl().getAllToDos(isToday: true));
+      emit(await ToDoRepositoryImpl().getAllToDos(isToday: false));
 
   @override
   void onChange(Change<List<ToDoModel>> change) {

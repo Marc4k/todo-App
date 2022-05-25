@@ -19,6 +19,7 @@ class AddNewTodoScreen extends StatefulWidget {
 
 TimeOfDay timeNow = TimeOfDay.now();
 TextEditingController nameController = TextEditingController();
+bool isToday = true;
 
 class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
   @override
@@ -78,7 +79,13 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
               children: [
                 const AddToDoTextWidget(text: "Today"),
                 const Spacer(),
-                Switch.adaptive(value: true, onChanged: (value) {})
+                Switch.adaptive(
+                    value: isToday,
+                    onChanged: (value) {
+                      setState(() {
+                        isToday = value;
+                      });
+                    })
               ],
             ),
             const Spacer(flex: 10),
@@ -94,8 +101,8 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
                     await ToDoRepositoryImpl().setNewToDo(
                         name: nameController.text,
                         time: timeNow.format(context).toString(),
-                        isToday: true);
-
+                        isToday: isToday);
+                    nameController.clear();
                     Navigator.pop(context);
                   }
                 },

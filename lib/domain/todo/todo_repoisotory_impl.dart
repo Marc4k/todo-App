@@ -8,16 +8,27 @@ class ToDoRepositoryImpl extends ToDoRepository {
       {required String name,
       required String time,
       required bool isToday}) async {
-    DatabaseService.instance.insertRaw(
-        'INSERT INTO todo (${ToDoFields.name}, ${ToDoFields.time}, ${ToDoFields.isChecked}) VALUES("$name", "$time", 0)');
+    if (isToday == true) {
+      DatabaseService.instance.insertRaw(
+          'INSERT INTO $tableToDoToday (${ToDoFields.name}, ${ToDoFields.time}, ${ToDoFields.isChecked}) VALUES("$name", "$time", 0)');
+    } else {
+      DatabaseService.instance.insertRaw(
+          'INSERT INTO $tableToDoTomorrow (${ToDoFields.name}, ${ToDoFields.time}, ${ToDoFields.isChecked}) VALUES("$name", "$time", 0)');
+    }
   }
 
   @override
-  Future<List<ToDoModel>> getAllToDosToday() async {
-    List<ToDoModel> todosToday = [];
+  Future<List<ToDoModel>> getAllToDos({required bool isToday}) async {
+    List<ToDoModel> todosListModel = [];
 
-    List<Map> list =
-        await DatabaseService.instance.rawQuery('SELECT * FROM $tableToDo');
+    List<Map> list = [];
+    if (isToday == true) {
+      list = await DatabaseService.instance
+          .rawQuery('SELECT * FROM $tableToDoToday');
+    } else {
+      list = await DatabaseService.instance
+          .rawQuery('SELECT * FROM $tableToDoTomorrow');
+    }
 
     for (var i = 0; i < list.length; i++) {
       bool isChecked = false;
@@ -28,19 +39,35 @@ class ToDoRepositoryImpl extends ToDoRepository {
         isChecked = false;
       }
 
-      todosToday.add(ToDoModel(
+      todosListModel.add(ToDoModel(
           id: list[i]["id"],
           name: list[i]["name"],
           time: list[i]["time"],
           isChecked: isChecked));
     }
 
-    return todosToday;
+    todosListModel.sort((a, b) => a.time.compareTo(b.time));
+
+    return todosListModel;
   }
 
   @override
-  Future<void> checkToDo({required int id}) async {
-    await DatabaseService.instance
-        .rawUpdate('UPDATE $tableToDo SET isChecked = 1 WHERE id = $id');
+  Future<void> checkToDo(
+      {required int id, required bool isToday, required bool isCheked}) async {
+    int isCheckedInt = 0;
+
+    if (isCheked == true) {
+      isCheckedInt = 0;
+    } else {
+      isCheckedInt = 1;
+    }
+
+    if (isToday == true) {
+      await DatabaseService.instance.rawUpdate(
+          'UPDATE $tableToDoToday SET isChecked = $isCheckedInt WHERE id = $id');
+    } else {
+      await DatabaseService.instance.rawUpdate(
+          'UPDATE $tableToDoTomorrow SET isChecked = $isCheckedInt WHERE id = $id');
+    }
   }
 }

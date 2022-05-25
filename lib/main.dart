@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/cubit/get_todo_today_cubit.dart';
+import 'package:todo/cubit/get_todo_tomorrow_cubit.dart';
+import 'package:todo/cubit/hide_or_show_completed.dart';
 import 'package:todo/pages/add_todo/view/add_new_todo.dart';
 import 'package:todo/pages/home/view/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +16,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        "/newToDo": (context) => AddNewTodoScreen(),
-      },
       debugShowCheckedModeBanner: false,
       home: Home(),
     );
@@ -29,9 +28,13 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<GetToDoCubit>(
-          create: (BuildContext context) => GetToDoCubit()..getToDoToday()),
-
+      BlocProvider<GetToDoTodayCubit>(
+          create: (BuildContext context) => GetToDoTodayCubit()..getToDo()),
+      BlocProvider<GetToDoTomorrowCubit>(
+          create: (BuildContext context) => GetToDoTomorrowCubit()..getToDo()),
+      BlocProvider<HideOrShowCompletedCubit>(
+          create: (BuildContext context) =>
+              HideOrShowCompletedCubit()..toggle(false)),
       //GetEasySelectDataCubit
     ], child: HomeScreen());
   }

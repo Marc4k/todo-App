@@ -1,4 +1,7 @@
-final String tableToDo = "todo";
+import 'package:flutter/material.dart';
+
+final String tableToDoToday = "todoToday";
+final String tableToDoTomorrow = "todoTomorrow";
 
 class ToDoFields {
   static final String id = 'id';
