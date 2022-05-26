@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo/cubit/get_todo_tomorrow_cubit.dart';
-import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
-import 'package:todo/shared/screen_adaption.dart';
+import '../../../cubit/get_todo_tomorrow_cubit.dart';
+import '../../../domain/todo/todo_repoisotory_impl.dart';
+import '../../../shared/screen_adaption.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubit/get_todo_today_cubit.dart';
@@ -56,7 +56,7 @@ class _ToDoListItemState extends State<ToDoListItem> {
                         : TextDecoration.none,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF737373),
+                    color: const Color(0xFF737373),
                   ),
                 ),
               ),
@@ -71,7 +71,7 @@ class _ToDoListItemState extends State<ToDoListItem> {
                         : TextDecoration.none,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFFA3A3A3),
+                    color: const Color(0xFFA3A3A3),
                   ),
                 ),
               )

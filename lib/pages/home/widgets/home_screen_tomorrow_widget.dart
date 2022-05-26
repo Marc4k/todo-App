@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/pages/home/widgets/todo_list_item.dart';
+import 'todo_list_item.dart';
 
-import '../../../cubit/get_todo_today_cubit.dart';
 import '../../../cubit/get_todo_tomorrow_cubit.dart';
 import '../../../domain/todo/models/todo_model.dart';
 import '../../../domain/todo/todo_repoisotory_impl.dart';
@@ -25,10 +24,10 @@ class _HomeScreenTomorrowWidgetState extends State<HomeScreenTomorrowWidget> {
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomTextWidget(
+          children: const [
+            CustomTextWidget(
                 textSize: 34, fontWeight: FontWeight.bold, text: "Tomorrow"),
-            const Spacer(),
+            Spacer(),
           ],
         ),
         BlocBuilder<GetToDoTomorrowCubit, List<ToDoModel>>(

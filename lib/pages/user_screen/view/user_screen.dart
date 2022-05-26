@@ -6,9 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo/cubit/profil_picture_cubit.dart';
-import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
-import 'package:todo/pages/user_screen/widget/user_screen_button.dart';
+import '../../../cubit/profil_picture_cubit.dart';
+import '../../../domain/todo/todo_repoisotory_impl.dart';
+import '../widget/user_screen_button.dart';
 
 import '../../../shared/screen_adaption.dart';
 
@@ -28,7 +28,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Profil"),
+          title: const Text("Profil"),
           backgroundColor: Colors.black,
         ),
         body: Center(
@@ -36,7 +36,7 @@ class _UserScreenState extends State<UserScreen> {
             padding: EdgeInsets.all(29 * sH(context)),
             child: Column(
               children: [
-                Spacer(),
+                const Spacer(),
                 BlocBuilder<ProfilPictureCubit, String>(
                     builder: (context, imagePath) {
                   void PickImage() async {
@@ -62,7 +62,7 @@ class _UserScreenState extends State<UserScreen> {
                       child: CircleAvatar(
                         radius: radiusinPixel * sW(context),
                         backgroundImage: FileImage(img),
-                        child: Icon(
+                        child: const Icon(
                           Icons.edit,
                           color: Colors.black,
                           size: 50,
@@ -74,8 +74,8 @@ class _UserScreenState extends State<UserScreen> {
                       onTap: () => PickImage(),
                       child: CircleAvatar(
                         radius: radiusinPixel * sW(context),
-                        backgroundImage: AssetImage("assets/img/img.jpg"),
-                        child: Icon(
+                        backgroundImage: const AssetImage("assets/img/img.jpg"),
+                        child: const Icon(
                           Icons.edit,
                           color: Colors.black,
                           size: 50,
@@ -84,7 +84,7 @@ class _UserScreenState extends State<UserScreen> {
                     );
                   }
                 }),
-                Spacer(flex: 50),
+                const Spacer(flex: 50),
                 UserScreenButton(
                   callback: () async {
                     await ToDoRepositoryImpl().deleteAll();
@@ -92,7 +92,7 @@ class _UserScreenState extends State<UserScreen> {
                     Navigator.pop(context);
                   },
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ),

@@ -1,6 +1,6 @@
-import 'package:todo/domain/database/db.dart';
-import 'package:todo/domain/todo/models/todo_model.dart';
-import 'package:todo/domain/todo/todo_repository.dart';
+import '../database/db.dart';
+import 'models/todo_model.dart';
+import 'todo_repository.dart';
 
 class ToDoRepositoryImpl extends ToDoRepository {
   @override

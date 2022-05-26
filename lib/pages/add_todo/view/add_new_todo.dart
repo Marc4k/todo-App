@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
-import 'package:todo/cubit/get_todo_today_cubit.dart';
-import 'package:todo/pages/add_todo/widgets/add_todo_button.dart';
-import 'package:todo/pages/add_todo/widgets/add_todo_text.dart';
-import 'package:todo/pages/home/view/home_screen.dart';
-import 'package:todo/shared/custom_text_widget.dart';
-import 'package:todo/shared/screen_adaption.dart';
+import '../../../cubit/get_todo_today_cubit.dart';
+import '../widgets/add_todo_button.dart';
+import '../widgets/add_todo_text.dart';
+import '../../home/view/home_screen.dart';
+import '../../../shared/custom_text_widget.dart';
+import '../../../shared/screen_adaption.dart';
 
 import '../../../domain/todo/models/todo_model.dart';
 import '../../../domain/todo/todo_repoisotory_impl.dart';
@@ -55,7 +55,7 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
             Row(
               children: [
                 const AddToDoTextWidget(text: "Hour"),
-                Spacer(),
+                const Spacer(),
                 CustomTextWidget(
                     textSize: 22,
                     fontWeight: FontWeight.w300,
@@ -122,14 +122,12 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
             const Spacer(flex: 10),
             AddToDoButton(
               callback: () async {
-                if (nameController.text != null) {
-                  await ToDoRepositoryImpl().setNewToDo(
-                      name: nameController.text,
-                      time: timeNow.format(context).toString(),
-                      isToday: isToday);
-                  nameController.clear();
-                  Navigator.pop(context);
-                }
+                await ToDoRepositoryImpl().setNewToDo(
+                    name: nameController.text,
+                    time: timeNow.format(context).toString(),
+                    isToday: isToday);
+                nameController.clear();
+                Navigator.pop(context);
               },
             ),
             const Spacer(flex: 2),

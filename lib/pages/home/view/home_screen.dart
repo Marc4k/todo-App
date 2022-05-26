@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               18 * sW(context), 5 * sW(context), 18 * sW(context), 0),
           child: Column(
             children: [
-              Spacer(),
+              const Spacer(),
               HomeScreenProfilPicture(
                 onClick: () async {
                   await Navigator.of(context).push(MaterialPageRoute(
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   create: (context) =>
                                       ProfilPictureCubit()..getPicture()),
                             ],
-                            child: UserScreen(),
+                            child: const UserScreen(),
                           )));
 
                   context.read<GetToDoTodayCubit>().getToDo();
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   context.read<ProfilPictureCubit>().getPicture();
                 },
               ),
-              Spacer(),
+              const Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Text(
                         showCompleted ? hide : showAll,
-                        style: TextStyle(fontSize: 13),
+                        style: const TextStyle(fontSize: 13),
                       )),
                 ],
               ),
               HomeScreenTodayWidget(showCompleted: showCompleted),
               HomeScreenTomorrowWidget(showCompleted: showCompleted),
-              Spacer()
+              const Spacer()
             ],
           ),
         ),

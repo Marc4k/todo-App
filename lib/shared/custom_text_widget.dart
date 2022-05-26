@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:todo/shared/screen_adaption.dart';
+import 'screen_adaption.dart';
 
 class CustomTextWidget extends StatelessWidget {
   const CustomTextWidget(

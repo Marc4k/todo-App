@@ -1,4 +1,4 @@
-import 'package:todo/domain/todo/models/todo_model.dart';
+import 'models/todo_model.dart';
 
 abstract class ToDoRepository {
   Future<void> setNewToDo(

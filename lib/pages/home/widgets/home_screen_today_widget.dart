@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/cubit/get_todo_today_cubit.dart';
-import 'package:todo/cubit/hide_or_show_completed.dart';
-import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
-import 'package:todo/pages/home/widgets/todo_list_item.dart';
-import 'package:todo/shared/custom_text_widget.dart';
-import 'package:todo/shared/screen_adaption.dart';
+import '../../../cubit/get_todo_today_cubit.dart';
+import '../../../domain/todo/todo_repoisotory_impl.dart';
+import 'todo_list_item.dart';
+import '../../../shared/screen_adaption.dart';
 
 import '../../../domain/todo/models/todo_model.dart';
 

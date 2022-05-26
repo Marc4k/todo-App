@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/cubit/profil_picture_cubit.dart';
-import 'package:todo/shared/screen_adaption.dart';
+import '../../../cubit/profil_picture_cubit.dart';
+import '../../../shared/screen_adaption.dart';
 
 class HomeScreenProfilPicture extends StatelessWidget {
   const HomeScreenProfilPicture({Key? key, required this.onClick})
@@ -35,7 +35,7 @@ class HomeScreenProfilPicture extends StatelessWidget {
               onTap: onClick,
               child: CircleAvatar(
                   radius: radiusinPixel * sW(context),
-                  foregroundImage: AssetImage("assets/img/img.jpg")),
+                  foregroundImage: const AssetImage("assets/img/img.jpg")),
             ),
           );
         }

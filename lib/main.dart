@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo/cubit/get_todo_today_cubit.dart';
-import 'package:todo/cubit/get_todo_tomorrow_cubit.dart';
-import 'package:todo/cubit/hide_or_show_completed.dart';
-import 'package:todo/cubit/profil_picture_cubit.dart';
-import 'package:todo/pages/add_todo/view/add_new_todo.dart';
-import 'package:todo/pages/home/view/home_screen.dart';
+import 'cubit/get_todo_today_cubit.dart';
+import 'cubit/get_todo_tomorrow_cubit.dart';
+import 'cubit/hide_or_show_completed.dart';
+import 'cubit/profil_picture_cubit.dart';
+import 'pages/add_todo/view/add_new_todo.dart';
+import 'pages/home/view/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
     );
@@ -39,6 +39,6 @@ class Home extends StatelessWidget {
           create: (BuildContext context) =>
               HideOrShowCompletedCubit()..toggle(false)),
       //GetEasySelectDataCubit
-    ], child: HomeScreen());
+    ], child: const HomeScreen());
   }
 }

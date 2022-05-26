@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:todo/domain/todo/models/todo_model.dart';
-import 'package:todo/domain/todo/todo_repoisotory_impl.dart';
+import '../domain/todo/models/todo_model.dart';
+import '../domain/todo/todo_repoisotory_impl.dart';
 
 class HideOrShowCompletedCubit extends Cubit<bool> {
   HideOrShowCompletedCubit() : super(false);
