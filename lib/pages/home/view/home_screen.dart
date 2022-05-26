@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               18 * sW(context), 5 * sW(context), 18 * sW(context), 0),
           child: Column(
             children: [
+              Spacer(),
               HomeScreenProfilPicture(
                 onClick: () async {
                   await Navigator.of(context).push(MaterialPageRoute(
@@ -72,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               HomeScreenTodayWidget(showCompleted: showCompleted),
               HomeScreenTomorrowWidget(showCompleted: showCompleted),
+              Spacer()
             ],
           ),
         ),

@@ -27,6 +27,7 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,

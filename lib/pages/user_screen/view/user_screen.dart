@@ -39,40 +39,50 @@ class _UserScreenState extends State<UserScreen> {
                 Spacer(),
                 BlocBuilder<ProfilPictureCubit, String>(
                     builder: (context, imagePath) {
-                  if (imagePath != "") {
-                    imageSlected = true;
-                  } else {
-                    imageSlected = false;
+                  void PickImage() async {
+                    final picker = ImagePicker();
+                    final pickedFile =
+                        await picker.pickImage(source: ImageSource.gallery);
+
+                    if (pickedFile == null) return;
+
+                    final imagePermanent =
+                        await saveImagePermanently(pickedFile.path);
+
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setString('profilImg', imagePermanent.path);
+
+                    context.read<ProfilPictureCubit>().getPicture();
                   }
 
-                  return GestureDetector(
-                    onTap: () async {
-                      final picker = ImagePicker();
-                      final pickedFile =
-                          await picker.pickImage(source: ImageSource.gallery);
-
-                      if (pickedFile == null) return;
-
-                      final imagePermanent =
-                          await saveImagePermanently(pickedFile.path);
-
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setString('profilImg', imagePermanent.path);
-
-                      context.read<ProfilPictureCubit>().getPicture();
-                    },
-                    child: CircleAvatar(
-                      radius: radiusinPixel * sW(context),
-                      backgroundImage: imageSlected
-                          ? AssetImage(imagePath)
-                          : AssetImage("assets/img/img.jpg"),
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.black,
-                        size: 50,
+                  if (imagePath != "") {
+                    File img = File(imagePath);
+                    return GestureDetector(
+                      onTap: () => PickImage(),
+                      child: CircleAvatar(
+                        radius: radiusinPixel * sW(context),
+                        backgroundImage: FileImage(img),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.black,
+                          size: 50,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return GestureDetector(
+                      onTap: () => PickImage(),
+                      child: CircleAvatar(
+                        radius: radiusinPixel * sW(context),
+                        backgroundImage: AssetImage("assets/img/img.jpg"),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.black,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
                 }),
                 Spacer(flex: 50),
                 UserScreenButton(
