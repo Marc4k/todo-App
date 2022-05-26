@@ -70,4 +70,21 @@ class ToDoRepositoryImpl extends ToDoRepository {
           'UPDATE $tableToDoTomorrow SET isChecked = $isCheckedInt WHERE id = $id');
     }
   }
+
+  @override
+  Future<void> deleteToDo({required int id, required bool isToday}) async {
+    if (isToday == true) {
+      await DatabaseService.instance
+          .rawDelete("DELETE FROM $tableToDoToday WHERE id = $id");
+    } else {
+      await DatabaseService.instance
+          .rawDelete("DELETE FROM $tableToDoTomorrow WHERE id = $id");
+    }
+  }
+
+  @override
+  Future<void> deleteAll() async {
+    await DatabaseService.instance.rawDelete("DELETE FROM $tableToDoTomorrow");
+    await DatabaseService.instance.rawDelete("DELETE FROM $tableToDoToday");
+  }
 }

@@ -45,5 +45,9 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To take user profile image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To choose user profile image</string>	
 </dict>
 </plist>

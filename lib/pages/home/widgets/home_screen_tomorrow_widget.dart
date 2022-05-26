@@ -5,6 +5,7 @@ import 'package:todo/pages/home/widgets/todo_list_item.dart';
 import '../../../cubit/get_todo_today_cubit.dart';
 import '../../../cubit/get_todo_tomorrow_cubit.dart';
 import '../../../domain/todo/models/todo_model.dart';
+import '../../../domain/todo/todo_repoisotory_impl.dart';
 import '../../../shared/custom_text_widget.dart';
 import '../../../shared/screen_adaption.dart';
 
@@ -39,21 +40,39 @@ class _HomeScreenTomorrowWidgetState extends State<HomeScreenTomorrowWidget> {
                 itemCount: todo.length,
                 itemBuilder: (context, index) {
                   if (widget.showCompleted == true) {
-                    return ToDoListItem(
-                      isToday: false,
-                      isChecked: todo[index].isChecked,
-                      text: todo[index].name,
-                      time: todo[index].time,
-                      id: todo[index].id,
-                    );
-                  } else {
-                    if (todo[index].isChecked == false) {
-                      return ToDoListItem(
+                    return Dismissible(
+                      onDismissed: ((direction) {
+                        ToDoRepositoryImpl()
+                            .deleteToDo(id: todo[index].id, isToday: false);
+
+                        context.read<GetToDoTomorrowCubit>().getToDo();
+                      }),
+                      key: Key(todo[index].id.toString()),
+                      child: ToDoListItem(
                         isToday: false,
                         isChecked: todo[index].isChecked,
                         text: todo[index].name,
                         time: todo[index].time,
                         id: todo[index].id,
+                      ),
+                    );
+                  } else {
+                    if (todo[index].isChecked == false) {
+                      return Dismissible(
+                        onDismissed: ((direction) {
+                          ToDoRepositoryImpl()
+                              .deleteToDo(id: todo[index].id, isToday: false);
+
+                          context.read<GetToDoTomorrowCubit>().getToDo();
+                        }),
+                        key: Key(todo[index].id.toString()),
+                        child: ToDoListItem(
+                          isToday: false,
+                          isChecked: todo[index].isChecked,
+                          text: todo[index].name,
+                          time: todo[index].time,
+                          id: todo[index].id,
+                        ),
                       );
                     } else {
                       return Container();

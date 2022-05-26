@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/cubit/get_todo_today_cubit.dart';
 import 'package:todo/cubit/get_todo_tomorrow_cubit.dart';
+import 'package:todo/cubit/profil_picture_cubit.dart';
 import 'package:todo/pages/add_todo/view/add_new_todo.dart';
 import 'package:todo/pages/home/widgets/home_screen_today_widget.dart';
 import 'package:todo/pages/home/widgets/home_screen_profil_picture.dart';
@@ -29,17 +31,27 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-              18 * sW(context), 12 * sW(context), 18 * sW(context), 0),
+              18 * sW(context), 5 * sW(context), 18 * sW(context), 0),
           child: Column(
             children: [
               HomeScreenProfilPicture(
-                onClick: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const UserScreen()),
-                  );
+                onClick: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider<ProfilPictureCubit>(
+                                  create: (context) =>
+                                      ProfilPictureCubit()..getPicture()),
+                            ],
+                            child: UserScreen(),
+                          )));
+
+                  context.read<GetToDoTodayCubit>().getToDo();
+                  context.read<GetToDoTomorrowCubit>().getToDo();
+                  context.read<ProfilPictureCubit>().getPicture();
                 },
               ),
+              Spacer(),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

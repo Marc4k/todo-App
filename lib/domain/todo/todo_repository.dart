@@ -6,4 +6,8 @@ abstract class ToDoRepository {
   Future<List<ToDoModel>> getAllToDos({required bool isToday});
   Future<void> checkToDo(
       {required int id, required bool isToday, required bool isCheked});
+
+  Future<void> deleteToDo({required int id, required bool isToday});
+
+  Future<void> deleteAll();
 }

@@ -39,6 +39,11 @@ class DatabaseService {
     final db = await instance.database;
     await db.rawUpdate('$query');
   }
+
+  Future<void> rawDelete(String query) async {
+    final db = await instance.database;
+    await db.rawDelete('$query');
+  }
 }
 
 Future _createDB(Database db, int version) async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:todo/cubit/get_todo_today_cubit.dart';
+import 'package:todo/pages/add_todo/widgets/add_todo_button.dart';
 import 'package:todo/pages/add_todo/widgets/add_todo_text.dart';
 import 'package:todo/pages/home/view/home_screen.dart';
 import 'package:todo/shared/custom_text_widget.dart';
@@ -18,6 +19,7 @@ class AddNewTodoScreen extends StatefulWidget {
 }
 
 TimeOfDay timeNow = TimeOfDay.now();
+DateTime time = DateTime.now();
 TextEditingController nameController = TextEditingController();
 bool isToday = true;
 
@@ -36,7 +38,7 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const CustomTextWidget(
-                textSize: 40, fontWeight: FontWeight.bold, text: "Add a task"),
+                textSize: 35, fontWeight: FontWeight.bold, text: "Add a task"),
             const Spacer(),
             Row(
               children: [
@@ -59,14 +61,42 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
                     text: timeNow.format(context)),
                 IconButton(
                     onPressed: () async {
-                      final TimeOfDay? selectedTime = await showTimePicker(
-                        context: context,
-                        initialTime: timeNow,
-                      );
-                      if (selectedTime != null) {
-                        setState(() {
-                          timeNow = selectedTime;
-                        });
+                      if (Platform.isAndroid) {
+                        final TimeOfDay? selectedTime = await showTimePicker(
+                          context: context,
+                          initialTime: timeNow,
+                        );
+
+                        if (selectedTime != null) {
+                          setState(() {
+                            timeNow = selectedTime;
+                          });
+                        }
+                      } else if (Platform.isIOS) {
+                        showCupertinoModalPopup(
+                            context: context,
+                            builder: (BuildContext builder) {
+                              return Container(
+                                height: MediaQuery.of(context)
+                                        .copyWith()
+                                        .size
+                                        .height *
+                                    0.25,
+                                color: Colors.white,
+                                child: CupertinoDatePicker(
+                                  initialDateTime: time,
+                                  mode: CupertinoDatePickerMode.time,
+                                  use24hFormat: true,
+                                  // This is called when the user changes the time.
+                                  onDateTimeChanged: (DateTime newTime) {
+                                    setState(() {
+                                      time = newTime;
+                                      timeNow = TimeOfDay.fromDateTime(time);
+                                    });
+                                  },
+                                ),
+                              );
+                            });
                       }
                     },
                     color: Colors.black,
@@ -89,24 +119,18 @@ class _AddNewTodoScreenState extends State<AddNewTodoScreen> {
               ],
             ),
             const Spacer(flex: 10),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(double.maxFinite, 45 * sH(context)),
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    )),
-                onPressed: () async {
-                  if (nameController.text != null) {
-                    await ToDoRepositoryImpl().setNewToDo(
-                        name: nameController.text,
-                        time: timeNow.format(context).toString(),
-                        isToday: isToday);
-                    nameController.clear();
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Text("Done")),
+            AddToDoButton(
+              callback: () async {
+                if (nameController.text != null) {
+                  await ToDoRepositoryImpl().setNewToDo(
+                      name: nameController.text,
+                      time: timeNow.format(context).toString(),
+                      isToday: isToday);
+                  nameController.clear();
+                  Navigator.pop(context);
+                }
+              },
+            ),
             const Spacer(flex: 2),
             Text(
               "If you disable today, the task will be considered as tomorrow",

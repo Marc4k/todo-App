@@ -9,6 +9,6 @@ class AddToDoTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextWidget(
-        textSize: 25, fontWeight: FontWeight.w500, text: text);
+        textSize: 22, fontWeight: FontWeight.w500, text: text);
   }
 }
